@@ -69,11 +69,18 @@ export default class TransactionScreen extends Component {
       console.log(doc.data())
 
       /* usar variavel pra detectar a situação da transação */
+      var book = doc.data();
+      if(book.is_book_available){
+        this.initiateBookIssue();
+      }else{this.initiateBookReturn()
+
+      }
     });
 
 
   };
-
+initiateBookIssue=()=>{console.log("livro entregue ao aluno")}
+initiateBookReturn=()=>{console.log("livro devolvido")}
   render() {
     const { bookId, studentId, domState, scanned } = this.state;
     if (domState !== "normal") {
@@ -121,7 +128,13 @@ export default class TransactionScreen extends Component {
               </TouchableOpacity>
             </View>
       {/*1. Criar um botão enviar que lerá os dados */}
-           
+           <TouchableOpacity
+                style={styles.button}
+                onPress={this.handleTransaction}
+
+              >
+                <Text style={styles.buttonText}>Enviar</Text>
+              </TouchableOpacity>
           
 
 
@@ -196,4 +209,18 @@ const styles = StyleSheet.create({
   },
   /*ESTILIZAR botãoe texto aqui, passar a font family adicionada*/
 
+  button: {
+    marginTop: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f48d20",
+    height: 60,
+    width: "20%",
+    borderRadius: 10
+  },
+  buttonText: {
+    fontSize: 20,
+    fontFamily: "Rajdhani_600SemiBold",
+    color: "white"
+  }
 });
